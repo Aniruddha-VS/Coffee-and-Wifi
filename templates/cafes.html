@@ -1,0 +1,48 @@
+{% extends 'bootstrap/base.html' %}
+
+
+{% block title %}Cafes{% endblock %}
+
+{% block styles %}
+    {{super()}}
+        <link rel="stylesheet" href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+      <h1>All Cafes</h1>
+
+        <table class="table table-dark" width="300">
+            <thead>
+              <tr>
+                {% for col in  cafes[0].to_dict().keys() %}
+                  <th scope="col">{{ col }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+            {% for cafe in cafes %}
+              <tr>
+                <td> {{ cafe['id'] }}</td>
+                <td>{{ cafe['name'] }}</td>
+                <td> <a href="{{ cafe['map_url'] }}"> Map link</a> </td>
+                <td> <a href="{{ cafe['img_url'] }}"> Image link</a> </td>
+                <td >{{ cafe['location']}}</td>
+                <td >{{ cafe['seats'] }}</td>
+                <td >{{ cafe['has_toilet'] }}</td>
+                <td>{{ cafe['has_wifi'] }}</td>
+                <td >{{ cafe['has_sockets'] }}</td>
+                <td>{{ cafe['can_take_calls'] }}</td>
+                <td >{{ cafe['coffee_price'] }}</td>
+            </tr>
+             {% endfor %}
+            </tbody>
+        </table>
+
+      <p><a href=" {{url_for('home') }}">Return to index page</a></p>
+      <p><a href=" {{url_for('add_cafe') }}">Add a new cafe</a></p>
+      <p class="space-above"><a href="{{url_for('delete')}}">Delete a Cafe</a></p>
+</div>
+
+{% endblock %}
